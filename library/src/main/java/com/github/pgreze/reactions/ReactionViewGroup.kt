@@ -148,7 +148,7 @@ class ReactionViewGroup(context: Context, private val config: ReactionsConfig) :
         }
 
         // Y position will be slightly on top of parent view
-        dialogY = parentLocation.y - dialogHeight * 2
+        dialogY = parentLocation.y - (dialogHeight + dialogHeight/2)
         if (dialogY < 0) {
             // Below parent view
             dialogY = parentLocation.y + parentSize.height + dialogHeight

@@ -4,10 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.view.Gravity
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.FrameLayout
 import android.widget.PopupWindow
 
@@ -47,12 +44,25 @@ class ReactionPopup @JvmOverloads constructor(
         setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 
+    var tempView: View? = null
+
+    val gestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
+        override fun onLongPress(e: MotionEvent?) {
+            if (e != null) {
+                showAtLocation(tempView, Gravity.NO_GRAVITY, 0, 0)
+                view.show(e, tempView!!)
+            }
+            super.onLongPress(e)
+        }
+    });
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouch(v: View, event: MotionEvent): Boolean {
         if (!isShowing) {
+            tempView = v
+            gestureDetector.onTouchEvent(event)
             // Show fullscreen with button as context provider
-            showAtLocation(v, Gravity.NO_GRAVITY, 0, 0)
-            view.show(event, v)
+
         }
         return view.onTouchEvent(event)
     }

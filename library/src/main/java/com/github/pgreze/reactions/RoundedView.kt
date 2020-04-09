@@ -2,12 +2,15 @@ package com.github.pgreze.reactions
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.RectF
 import android.util.Log
+import android.util.TypedValue
 import android.view.View
+
 
 /**
  * Reaction selector floating dialog background.
@@ -23,7 +26,15 @@ class RoundedView(context: Context, private val config: ReactionsConfig) : View(
         alpha = 230
     }
 
-    private var cornerSize = 0f
+
+    var dip = 50f
+    var r: Resources = resources
+    var px = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dip,
+            r.displayMetrics
+    )
+    private var cornerSize = px
 
     private var xStart = 0f
     private var yStart = 0f
@@ -39,7 +50,7 @@ class RoundedView(context: Context, private val config: ReactionsConfig) : View(
         val bPad = xPad / 2
         val nIcons = config.reactions.size
         val regIconSize = (w - (2 * xPad + (nIcons - 1) * bPad)) / nIcons
-        cornerSize = xPad + regIconSize / 2
+//        cornerSize = xPad + regIconSize / 2
         xStart = cornerSize
         yStart = 0f
 
