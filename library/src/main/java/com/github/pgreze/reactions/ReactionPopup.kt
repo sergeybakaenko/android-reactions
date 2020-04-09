@@ -62,9 +62,8 @@ class ReactionPopup @JvmOverloads constructor(
             tempView = v
             gestureDetector.onTouchEvent(event)
             // Show fullscreen with button as context provider
-
         }
-        return view.onTouchEvent(event)
+        return false
     }
 
     override fun dismiss() {
